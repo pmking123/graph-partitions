@@ -17,15 +17,23 @@ threshold partition in TP(n):
 
 ```
 src/
-    partition_lib.py       Core library: TP(n) enumeration, δ computation
-    alkanes.py             Alkane degree sequences, theorem verification
-    cyclic_molecules.py    Cyclic molecule library, cycle formula verification
+    partition_lib.py         Core library: TP(n) enumeration, δ computation
+    alkanes.py               Alkane degree sequences, theorem verification
+    cyclic_molecules.py      Cyclic molecule library, cycle formula verification
     correlation_analysis.py  BP and logP correlation analysis
+    freesolv_analysis.py     Hydration free energy analysis (FreeSolv)
+    export_tables.py         Generate supplementary data tables
 
 tests/
-    test_partition_lib.py  Pytest unit tests
+    test_partition_lib.py    Pytest unit tests for core library
+    test_freesolv.py         Pytest unit tests for FreeSolv analysis
 
-results/                   (empty; populated by running the scripts)
+data/
+    freesolv_database.txt    FreeSolv v0.52 database (Mobley & Guthrie, 2014)
+    alkanes_C1_C15.csv       δ for all unique alkane degree sequences, n=1..15
+    experimental_C1_C9.csv   δ, BP, and experimental logP for C1-C9 alkanes
+    freesolv_alkanes.csv     δ and hydration free energy for FreeSolv alkanes
+    cyclic_molecules.csv     δ for the 25-molecule cyclic library
 ```
 
 ## Installation
@@ -56,6 +64,12 @@ python src/cyclic_molecules.py --verify-cycles
 # Run full correlation analysis (C1-C15)
 python src/correlation_analysis.py
 
+# Run FreeSolv hydration free energy analysis
+python src/freesolv_analysis.py
+
+# Regenerate all supplementary data tables
+python src/export_tables.py
+
 # Single molecule
 python src/cyclic_molecules.py --smiles "CCC(C)CCC"
 
@@ -63,15 +77,35 @@ python src/cyclic_molecules.py --smiles "CCC(C)CCC"
 pytest tests/
 ```
 
+## Supplementary data tables
+
+The CSV files in `data/` are the datasets underlying Tables 2–4 of the paper.
+They can be regenerated from scratch by running:
+
+```bash
+python src/export_tables.py
+```
+
+| File | Contents | Rows |
+|------|----------|------|
+| `alkanes_C1_C15.csv` | δ for all unique alkane degree sequences n=1..15 | 124 |
+| `experimental_C1_C9.csv` | δ, BP (°C), and experimental logP for C1–C9 | 27 |
+| `freesolv_alkanes.csv` | δ and ΔG_hyd (kcal/mol) for FreeSolv alkanes | 23 |
+| `cyclic_molecules.csv` | δ for 25 cyclic molecules | 25 |
+
+Note: `alkanes_C1_C15.csv` includes methane (n=1) as a single row; the paper
+reports 123 unique degree sequences for n≥2.
+
 ## Key results reproduced
 
 | Result | Script | Function |
 |--------|--------|----------|
-| Theorem 1: δ(C_n)² = 4n−14 | `cyclic_molecules.py --verify-cycles` | `verify_cycle_formula()` |
-| Theorem 3: δ(T)² ≥ 4 when p ≥ 4 | `alkanes.py --verify` | `verify_theorem3()` |
-| Theorem 4: δ(P_n)² = 4(n−5) | `alkanes.py --verify` | `verify_path_formula()` |
+| Theorem 2: δ(C_n)² = 4n−14 | `cyclic_molecules.py --verify-cycles` | `verify_cycle_formula()` |
+| Theorem 4: δ(T)² ≥ 4 when p ≥ 4 | `alkanes.py --verify` | `verify_theorem3()` |
+| Theorem 5: δ(P_n)² = 4(n−5) | `alkanes.py --verify` | `verify_path_formula()` |
 | Table 2 (correlations) | `correlation_analysis.py` | `run_analysis()` |
 | Table 3 (partial correlations) | `correlation_analysis.py` | `run_analysis()` |
+| Table 4 (FreeSolv) | `freesolv_analysis.py` | `run_analysis()` |
 
 ## Python API
 
@@ -99,8 +133,8 @@ print(delta_squared(d))
 - δ(G)² is always **even** (Parity Lemma: proved in the paper).
 - TP(n) has 2^{n-1} elements; exact enumeration is feasible for n ≤ 18
   (|TP(18)| = 131072). For n > 18, beam search or branch-and-bound is needed.
-- All theorems are verified computationally for n ≤ 13 (Theorem 3),
-  n ≤ 15 (Theorem 4), and n ≤ 20 (Theorem 1).
+- All theorems are verified computationally for n ≤ 13 (Theorem 4),
+  n ≤ 15 (Theorem 5), and n ≤ 20 (Theorem 2).
 - δ depends only on the degree sequence, not the full graph structure.
   Isomers sharing a carbon skeleton degree sequence (e.g. anthracene and
   phenanthrene) have identical δ.
@@ -108,12 +142,12 @@ print(delta_squared(d))
 ## Citing
 
 ```bibtex
-@article{king2024threshold,
-  title   = {A Geometric Topological Index via Threshold Partitions:
-             Ferrers Diagrams and Molecular Graphs},
-  author  = {King, Paul},
+@article{king2026threshold,
+  author  = {King, Paul M.},
+  title   = {A Geometric Topological Index via Threshold Partitions},
   journal = {MATCH Communications in Mathematical and Computer Chemistry},
-  year    = {Submitted}
+  year    = {2026},
+  note    = {Submitted}
 }
 ```
 
@@ -123,8 +157,20 @@ MIT License
 
 Copyright (c) 2026 Paul M. King
 
-Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
 
-The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
 
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
