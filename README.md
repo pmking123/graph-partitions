@@ -2,9 +2,8 @@
 
 Code accompanying:
 
-> King, P. (2024). *A Geometric Topological Index via Threshold Partitions:
-> Ferrers Diagrams and Molecular Graphs*.
-> MATCH Communications in Mathematical and Computer Chemistry.
+> King, P. (2026). *A Geometric Topological Index via Threshold Partitions*
+> MATCH Communications in Mathematical and Computer Chemistry (submitted).
 
 ## Overview
 
