@@ -3,7 +3,7 @@
 Code accompanying:
 
 > King, P. (2026). *A Geometric Topological Index via Threshold Partitions*
-> MATCH Communications in Mathematical and Computer Chemistry (submitted).
+> MATCH Communications in Mathematical and Computer Chemistry (accepted).
 
 ## Overview
 
@@ -147,7 +147,7 @@ print(delta_squared(d))
   title   = {A Geometric Topological Index via Threshold Partitions},
   journal = {MATCH Communications in Mathematical and Computer Chemistry},
   year    = {2026},
-  note    = {Submitted}
+  note    = {In press}
 }
 ```
 
