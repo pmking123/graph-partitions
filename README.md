@@ -147,7 +147,7 @@ print(delta_squared(d))
   title   = {A Geometric Topological Index via Threshold Partitions},
   journal = {MATCH Communications in Mathematical and Computer Chemistry},
   year    = {2026},
-  note    = {Submitted}
+  note    = {In press}
 }
 ```
 
