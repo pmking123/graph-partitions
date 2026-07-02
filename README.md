@@ -3,7 +3,7 @@
 Code accompanying:
 
 > King, P. (2026). *A Geometric Topological Index via Threshold Partitions*
-> MATCH Communications in Mathematical and Computer Chemistry (submitted).
+> MATCH Communications in Mathematical and Computer Chemistry (accepted).
 
 ## Overview
 
