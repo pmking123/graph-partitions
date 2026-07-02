@@ -1,0 +1,59 @@
+cff-version: 1.2.0
+message: "If you use this software, please cite both the paper and the software itself."
+
+title: "graph-partitions: Threshold Distance Topological Index for Molecular Graphs"
+abstract: >
+  Python implementation of the threshold distance index δ(G) introduced in
+  King (2026). Given a molecular graph G, the code computes the Euclidean
+  distance from the degree partition d(G) to the nearest threshold partition
+  in TP(n), the set of extreme points of the degree-partition polytope DP(n).
+  Includes routines for alkane and cyclic molecule generation via RDKit and
+  NetworkX, correlation analysis against boiling point and logP, and a full
+  test suite (81 tests).
+
+authors:
+  - family-names: King
+    given-names: Paul M.
+    orcid: "https://orcid.org/0000-0002-2371-7704"
+    affiliation: "School of Natural Sciences, Birkbeck, University of London"
+    email: p.king@bbk.ac.uk
+
+repository-code: "https://github.com/pmking123/graph-partitions"
+license: MIT
+version: "1.0.0"
+date-released: "2026-06-26"
+
+keywords:
+  - topological index
+  - threshold graphs
+  - degree partition
+  - molecular graph
+  - chemical graph theory
+  - integer partitions
+  - QSPR
+
+preferred-citation:
+  type: article
+  title: "A Geometric Topological Index via Threshold Partitions"
+  authors:
+    - family-names: King
+      given-names: Paul M.
+      orcid: "https://orcid.org/0000-0002-2371-7704"
+      affiliation: "School of Natural Sciences, Birkbeck, University of London"
+  journal: "MATCH Communications in Mathematical and in Computer Chemistry"
+  issn: "0340-6253"
+  year: 2026
+  doi: "10.46793/match.00-00.xxxxx"   # update with final volume/issue/id
+
+references:
+  - type: software
+    title: "graph-partitions: Threshold Distance Topological Index for Molecular Graphs"
+    authors:
+      - family-names: King
+        given-names: Paul M.
+        orcid: "https://orcid.org/0000-0002-2371-7704"
+    repository-code: "https://github.com/pmking123/graph-partitions"
+    doi: "10.5281/zenodo.XXXXXXX"   # update after Zenodo archive
+    version: "1.0.0"
+    date-released: "2026-06-26"
+    license: MIT
